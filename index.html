@@ -234,10 +234,10 @@
             padding-bottom: 8px;
             border-bottom: 1px solid #2a2a5a;
         }
-        .standings-table .pot1 { background: rgba(52, 152, 219, 0.15); }
-        .standings-table .pot2 { background: rgba(46, 204, 113, 0.15); }
-        .standings-table .pot3 { background: rgba(241, 196, 15, 0.15); }
-        .standings-table .pot4 { background: rgba(231, 76, 60, 0.15); }
+        .standings-table .pot1 { background: rgba(52, 152, 219, 0.25); color: #7ec8f0; }
+        .standings-table .pot2 { background: rgba(46, 204, 113, 0.25); color: #7ee8b0; }
+        .standings-table .pot3 { background: rgba(241, 196, 15, 0.25); color: #f5e06b; }
+        .standings-table .pot4 { background: rgba(231, 76, 60, 0.25); color: #f0a8a0; }
         .standings-table th.pot1 { color: #3498db; }
         .standings-table th.pot2 { color: #2ecc71; }
         .standings-table th.pot3 { color: #f1c40f; }
@@ -264,31 +264,34 @@
             }
             .bracket-wrapper {
                 padding: 10px 0;
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
             }
             .bracket {
+                min-width: 900px;
                 gap: 0;
             }
             .round {
-                min-width: 140px;
+                min-width: 160px;
                 padding: 0 3px;
             }
             .round-header {
                 font-size: 0.6rem;
             }
             .matchup-date {
-                font-size: 0.55rem;
+                font-size: 0.6rem;
                 padding: 3px 6px;
             }
             .team {
-                padding: 4px 6px;
+                padding: 5px 6px;
             }
             .team-flag {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
                 margin-right: 5px;
                 width: 16px;
             }
             .team-name {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
             }
             .standings-section {
                 margin-top: 40px;
@@ -306,8 +309,13 @@
             .chart-value {
                 font-size: 0.7rem;
             }
+            .standings-table-wrapper {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
             .standings-table {
                 font-size: 0.65rem;
+                min-width: 600px;
             }
             .standings-table th,
             .standings-table td {
@@ -316,19 +324,11 @@
         }
 
         @media (max-width: 480px) {
+            .bracket {
+                min-width: 800px;
+            }
             .round {
-                min-width: 115px;
-                padding: 0 2px;
-            }
-            .team-name {
-                font-size: 0.6rem;
-            }
-            .matchup-date {
-                font-size: 0.5rem;
-            }
-            .round-header {
-                font-size: 0.55rem;
-                letter-spacing: 0.5px;
+                min-width: 140px;
             }
         }
     </style>
