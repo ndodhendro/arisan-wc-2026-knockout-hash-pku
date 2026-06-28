@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arisan World Cup 2026 HASH PKU - Bagan Knockout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #0f0f23;
+            color: #fff;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 60px;
+            height: auto;
+            mix-blend-mode: screen;
+        }
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .last-updated {
+            color: #666;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            text-align: center;
+        }
+        .bracket-wrapper {
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        .bracket {
+            display: flex;
+            align-items: stretch;
+            position: relative;
+        }
+        .round {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+            padding: 0 5px;
+        }
+        .round-header {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e94560;
+        }
+        /* Round colors */
+        .round-r16 .round-header { color: #3498db; border-bottom-color: #3498db; }
+        .round-r16 .matchup { border-color: rgba(52, 152, 219, 0.4); }
+        .round-r16 .matchup:hover { border-color: #3498db; box-shadow: 0 4px 20px rgba(52, 152, 219, 0.2); }
+        .round-r16 .matchup-date { background: rgba(52, 152, 219, 0.1); }
+
+        .round-qf .round-header { color: #2ecc71; border-bottom-color: #2ecc71; }
+        .round-qf .matchup { border-color: rgba(46, 204, 113, 0.4); }
+        .round-qf .matchup:hover { border-color: #2ecc71; box-shadow: 0 4px 20px rgba(46, 204, 113, 0.2); }
+        .round-qf .matchup-date { background: rgba(46, 204, 113, 0.1); }
+
+        .round-sf .round-header { color: #f39c12; border-bottom-color: #f39c12; }
+        .round-sf .matchup { border-color: rgba(243, 156, 18, 0.4); }
+        .round-sf .matchup:hover { border-color: #f39c12; box-shadow: 0 4px 20px rgba(243, 156, 18, 0.2); }
+        .round-sf .matchup-date { background: rgba(243, 156, 18, 0.1); }
+
+        .round-final .round-header { color: #e74c3c; border-bottom-color: #e74c3c; }
+        .round-final .matchup { border-color: rgba(231, 76, 60, 0.4); }
+        .round-final .matchup:hover { border-color: #e74c3c; box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3); }
+        .round-final .matchup-date { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+        .round-matches {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex: 1;
+            gap: 8px;
+        }
+        .matchup {
+            background: #1a1a3e;
+            border-radius: 8px;
+            border: 1px solid #2a2a5a;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .matchup:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.2);
+            border-color: #e94560;
+        }
+        .matchup-date {
+            background: #12122a;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            color: #aaa;
+            text-align: center;
+            border-bottom: 1px solid #2a2a5a;
+        }
+        .team {
+            display: flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-bottom: 1px solid #1f1f45;
+        }
+        .team:last-child {
+            border-bottom: none;
+        }
+        .team-flag {
+            font-size: 1rem;
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+        .team-name {
+            font-size: 0.78rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .tbd .team-name {
+            color: #666;
+            font-style: italic;
+        }
+        .timezone-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 30px;
+        }
+        /* Standings Section */
+        .standings-section {
+            max-width: 900px;
+            margin: 60px auto 0;
+        }
+        .standings-title {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+        .standings-chart {
+            margin-bottom: 40px;
+        }
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .chart-label {
+            width: 80px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: right;
+            padding-right: 12px;
+            color: #ddd;
+        }
+        .chart-bar-wrapper {
+            flex: 1;
+            background: #1a1a3e;
+            border-radius: 6px;
+            overflow: hidden;
+            height: 32px;
+        }
+        .chart-bar {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            transition: width 1s ease;
+        }
+        .chart-value {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .standings-table-wrapper {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .standings-table thead tr {
+            background: #1a1a3e;
+        }
+        .standings-table th {
+            padding: 10px 8px;
+            text-align: center;
+            color: #e94560;
+            font-weight: 600;
+            border-bottom: 2px solid #e94560;
+        }
+        .standings-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid #2a2a5a;
+            color: #ccc;
+        }
+        .standings-table tbody tr:hover {
+            background: #1a1a3e;
+        }
+        .standings-table td strong {
+            color: #fff;
+        }
+        .table-section-title {
+            font-size: 1rem;
+            color: #fff;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2a2a5a;
+        }
+        .standings-table .pot1 { background: rgba(52, 152, 219, 0.15); }
+        .standings-table .pot2 { background: rgba(46, 204, 113, 0.15); }
+        .standings-table .pot3 { background: rgba(241, 196, 15, 0.15); }
+        .standings-table .pot4 { background: rgba(231, 76, 60, 0.15); }
+        .standings-table th.pot1 { color: #3498db; }
+        .standings-table th.pot2 { color: #2ecc71; }
+        .standings-table th.pot3 { color: #f1c40f; }
+        .standings-table th.pot4 { color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://www.fifplay.com/img/public/fifa-world-cup-2026-logo.png" alt="FIFA World Cup 2026" class="logo">
+        <div>
+            <h1>Arisan World Cup 2026 HASH PKU</h1>
+            <p class="last-updated">Last updated: 29 Juni 2026, 00:00:00</p>
+        </div>
+        <img src="https://www.fifplay.com/img/public/fifa-world-cup-2026-logo.png" alt="FIFA World Cup 2026" class="logo">
+    </div>
+
+    <div class="bracket-wrapper">
+        <div class="bracket">
+            <!-- 16 Besar -->
+            <div class="round round-r16">
+                <div class="round-header">16 Besar</div>
+                <div class="round-matches">
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Min, 5/7, 00.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Min, 5/7, 04.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sel, 7/7, 07.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sel, 7/7, 02.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sen, 6/7, 03.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sen, 6/7, 07.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Rab, 8/7, 03.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sel, 7/7, 23.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perempat Final -->
+            <div class="round round-qf">
+                <div class="round-header">Perempat Final</div>
+                <div class="round-matches">
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Jum, 10/7, 03.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sab, 11/7, 02.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Min, 12/7, 04.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Min, 12/7, 08.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Semifinal -->
+            <div class="round round-sf">
+                <div class="round-header">Semifinal</div>
+                <div class="round-matches">
+                    <div class="matchup tbd">
+                        <div class="matchup-date">15/7, 02.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">16/7, 02.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final -->
+            <div class="round round-final">
+                <div class="round-header">🏆 Final</div>
+                <div class="round-matches">
+                    <div class="matchup tbd">
+                        <div class="matchup-date">20/7, 02.00</div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag">🛡️</span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trophy -->
+            <div class="round" style="min-width: 80px; padding: 0; margin-left: -5px; display: flex; justify-content: center; align-items: center;">
+                <img src="https://png.pngtree.com/png-vector/20250923/ourmid/pngtree-the-fifa-world-cup-trophy-png-image_17551611.webp" alt="Trophy" style="width: 80px; height: auto; align-self: center; margin-left: -40px; margin-top: 50px;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function drawBracketLines() {
+            const bracket = document.querySelector('.bracket');
+            const rounds = bracket.querySelectorAll('.round');
+
+            const existingSvg = bracket.querySelector('.bracket-lines');
+            if (existingSvg) existingSvg.remove();
+
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.classList.add('bracket-lines');
+            svg.style.position = 'absolute';
+            svg.style.top = '0';
+            svg.style.left = '0';
+            svg.style.width = '100%';
+            svg.style.height = '100%';
+            svg.style.pointerEvents = 'none';
+            svg.style.overflow = 'visible';
+
+            const bracketRect = bracket.getBoundingClientRect();
+
+            for (let i = 0; i < rounds.length - 1; i++) {
+                const currentMatches = rounds[i].querySelectorAll('.matchup');
+                const nextMatches = rounds[i + 1].querySelectorAll('.matchup');
+
+                for (let j = 0; j < nextMatches.length; j++) {
+                    const match1Index = j * 2;
+                    const match2Index = j * 2 + 1;
+
+                    if (currentMatches[match1Index] && currentMatches[match2Index] && nextMatches[j]) {
+                        const m1Rect = currentMatches[match1Index].getBoundingClientRect();
+                        const m2Rect = currentMatches[match2Index].getBoundingClientRect();
+                        const targetRect = nextMatches[j].getBoundingClientRect();
+
+                        const x1 = m1Rect.right - bracketRect.left;
+                        const y1 = m1Rect.top + m1Rect.height / 2 - bracketRect.top;
+                        const x2 = m2Rect.right - bracketRect.left;
+                        const y2 = m2Rect.top + m2Rect.height / 2 - bracketRect.top;
+                        const x3 = targetRect.left - bracketRect.left;
+                        const y3 = targetRect.top + targetRect.height / 2 - bracketRect.top;
+
+                        const midX = (x1 + x3) / 2;
+
+                        const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path1.setAttribute('d', `M${x1},${y1} H${midX} V${y3} H${x3}`);
+                        path1.setAttribute('stroke', '#333');
+                        path1.setAttribute('stroke-width', '1.5');
+                        path1.setAttribute('fill', 'none');
+                        svg.appendChild(path1);
+
+                        const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path2.setAttribute('d', `M${x2},${y2} H${midX}`);
+                        path2.setAttribute('stroke', '#333');
+                        path2.setAttribute('stroke-width', '1.5');
+                        path2.setAttribute('fill', 'none');
+                        svg.appendChild(path2);
+                    }
+                }
+            }
+
+            bracket.style.position = 'relative';
+            bracket.appendChild(svg);
+        }
+
+        window.addEventListener('load', drawBracketLines);
+        window.addEventListener('resize', drawBracketLines);
+    </script>
+
+    <!-- Standings Section -->
+    <div class="standings-section">
+        <h2 class="table-section-title">📊 Standings Points Peserta Arisan</h2>
+        <div class="standings-chart">
+            <div class="chart-row">
+                <div class="chart-label">Davin</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="width: 5%; background: linear-gradient(90deg, #0984e3, #74b9ff);">
+                        <span class="chart-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Ndod</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="width: 5%; background: linear-gradient(90deg, #6c5ce7, #a29bfe);">
+                        <span class="chart-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Khuang</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="width: 5%; background: linear-gradient(90deg, #f9ca24, #f0932b);">
+                        <span class="chart-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Marten</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="width: 5%; background: linear-gradient(90deg, #fd79a8, #e84393);">
+                        <span class="chart-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Cham</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="width: 5%; background: linear-gradient(90deg, #e94560, #ff6b6b);">
+                        <span class="chart-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Willy</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="width: 5%; background: linear-gradient(90deg, #00b894, #55efc4);">
+                        <span class="chart-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Wesly</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="width: 5%; background: linear-gradient(90deg, #4ecdc4, #45b7aa);">
+                        <span class="chart-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Quest Table -->
+        <h3 class="table-section-title">🎯 Main Quest</h3>
+        <div class="standings-table-wrapper">
+            <table class="standings-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Peserta</th>
+                        <th class="pot1" colspan="2">Pot 1</th>
+                        <th class="pot2" colspan="2">Pot 2</th>
+                        <th class="pot3" colspan="2">Pot 3</th>
+                        <th class="pot4" colspan="2">Pot 4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>Davin</strong></td>
+                        <td class="pot1">Portugal</td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot2">Amerika Serikat</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Kanada</td>
+                        <td class="pot4">Algeria</td>
+                        <td class="pot4">Kongo DR</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>Ndod</strong></td>
+                        <td class="pot1">Perancis</td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot2">Maroko</td>
+                        <td class="pot2">Kroasia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Senegal</td>
+                        <td class="pot4">Afrika Selatan</td>
+                        <td class="pot4">Kongo DR</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>Khuang</strong></td>
+                        <td class="pot1">Spanyol</td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Kanada</td>
+                        <td class="pot4">Algeria</td>
+                        <td class="pot4">Bosnia-Herz</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>Marten</strong></td>
+                        <td class="pot1">Spanyol</td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot2">Jepang</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Senegal</td>
+                        <td class="pot4">Ghana</td>
+                        <td class="pot4">Austria</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>Cham</strong></td>
+                        <td class="pot1">Perancis</td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot2">Maroko</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Senegal</td>
+                        <td class="pot4">Ghana</td>
+                        <td class="pot4">Austria</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>Willy</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Perancis</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Jepang</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Senegal</td>
+                        <td class="pot4">Tanjung Verde</td>
+                        <td class="pot4">Afrika Selatan</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><strong>Wesly</strong></td>
+                        <td class="pot1">Brazil</td>
+                        <td class="pot1">Spanyol</td>
+                        <td class="pot2">Jepang</td>
+                        <td class="pot2">Maroko</td>
+                        <td class="pot3">Senegal</td>
+                        <td class="pot3">Swedia</td>
+                        <td class="pot4">Paraguay</td>
+                        <td class="pot4">Bosnia-Herz</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Side Quest Table -->
+        <h3 class="table-section-title">⭐ Side Quest</h3>
+        <div class="standings-table-wrapper">
+            <table class="standings-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Peserta</th>
+                        <th>Champion</th>
+                        <th>Runner-Up</th>
+                        <th>3rd Rank</th>
+                        <th>Golden Boot</th>
+                        <th>Golden Glove</th>
+                        <th>Total Goal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>Davin</strong></td>
+                        <td>Portugal</td>
+                        <td>Argentina</td>
+                        <td>Brazil</td>
+                        <td>Lionel Messi</td>
+                        <td>Vozinha</td>
+                        <td>71</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>Ndod</strong></td>
+                        <td>Perancis</td>
+                        <td>Argentina</td>
+                        <td>Spanyol</td>
+                        <td>Kylian Mbappe</td>
+                        <td>Emiliano Martinez</td>
+                        <td>82</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>Khuang</strong></td>
+                        <td>Argentina</td>
+                        <td>Spanyol</td>
+                        <td>Perancis</td>
+                        <td>Kylian Mbappe</td>
+                        <td>Emiliano Martinez</td>
+                        <td>88</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>Marten</strong></td>
+                        <td>Spanyol</td>
+                        <td>Argentina</td>
+                        <td>Brazil</td>
+                        <td>Lamine Yamal</td>
+                        <td>Unai Simon</td>
+                        <td>57</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>Cham</strong></td>
+                        <td>Argentina</td>
+                        <td>Perancis</td>
+                        <td>Portugal</td>
+                        <td>Kylian Mbappe</td>
+                        <td>Mike Maignan</td>
+                        <td>117</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>Willy</strong></td>
+                        <td>Argentina</td>
+                        <td>Perancis</td>
+                        <td>Portugal</td>
+                        <td>Lionel Messi</td>
+                        <td>Emiliano Martinez</td>
+                        <td>81</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><strong>Wesly</strong></td>
+                        <td>Brazil</td>
+                        <td>Spanyol</td>
+                        <td>Perancis</td>
+                        <td>Kylian Mbappe</td>
+                        <td>Alison Becker</td>
+                        <td>93</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
