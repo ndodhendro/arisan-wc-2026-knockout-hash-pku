@@ -242,6 +242,95 @@
         .standings-table th.pot2 { color: #2ecc71; }
         .standings-table th.pot3 { color: #f1c40f; }
         .standings-table th.pot4 { color: #e74c3c; }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .logo {
+                width: 45px;
+            }
+            h1 {
+                font-size: 1.1rem;
+                text-align: center;
+            }
+            .subtitle, .last-updated {
+                text-align: center;
+            }
+            .bracket-wrapper {
+                padding: 10px 0;
+            }
+            .bracket {
+                gap: 0;
+            }
+            .round {
+                min-width: 140px;
+                padding: 0 3px;
+            }
+            .round-header {
+                font-size: 0.6rem;
+            }
+            .matchup-date {
+                font-size: 0.55rem;
+                padding: 3px 6px;
+            }
+            .team {
+                padding: 4px 6px;
+            }
+            .team-flag {
+                font-size: 0.8rem;
+                margin-right: 5px;
+                width: 16px;
+            }
+            .team-name {
+                font-size: 0.65rem;
+            }
+            .standings-section {
+                margin-top: 40px;
+            }
+            .standings-title, .table-section-title {
+                font-size: 0.9rem;
+            }
+            .chart-label {
+                width: 60px;
+                font-size: 0.75rem;
+            }
+            .chart-bar-wrapper {
+                height: 26px;
+            }
+            .chart-value {
+                font-size: 0.7rem;
+            }
+            .standings-table {
+                font-size: 0.65rem;
+            }
+            .standings-table th,
+            .standings-table td {
+                padding: 6px 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .round {
+                min-width: 115px;
+                padding: 0 2px;
+            }
+            .team-name {
+                font-size: 0.6rem;
+            }
+            .matchup-date {
+                font-size: 0.5rem;
+            }
+            .round-header {
+                font-size: 0.55rem;
+                letter-spacing: 0.5px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -369,7 +458,8 @@
     <script>
         function drawBracketLines() {
             const bracket = document.querySelector('.bracket');
-            const rounds = bracket.querySelectorAll('.round');
+            // Only select rounds that have matchups (exclude trophy div)
+            const rounds = bracket.querySelectorAll('.round-r16, .round-qf, .round-sf, .round-final');
 
             const existingSvg = bracket.querySelector('.bracket-lines');
             if (existingSvg) existingSvg.remove();
@@ -408,16 +498,18 @@
 
                         const midX = (x1 + x3) / 2;
 
+                        // Horizontal from match1, then vertical down to midpoint Y, then horizontal to target
                         const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                         path1.setAttribute('d', `M${x1},${y1} H${midX} V${y3} H${x3}`);
-                        path1.setAttribute('stroke', '#333');
+                        path1.setAttribute('stroke', '#444');
                         path1.setAttribute('stroke-width', '1.5');
                         path1.setAttribute('fill', 'none');
                         svg.appendChild(path1);
 
+                        // Horizontal from match2 to midpoint X, then vertical to midpoint Y
                         const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        path2.setAttribute('d', `M${x2},${y2} H${midX}`);
-                        path2.setAttribute('stroke', '#333');
+                        path2.setAttribute('d', `M${x2},${y2} H${midX} V${y3}`);
+                        path2.setAttribute('stroke', '#444');
                         path2.setAttribute('stroke-width', '1.5');
                         path2.setAttribute('fill', 'none');
                         svg.appendChild(path2);
@@ -429,7 +521,7 @@
             bracket.appendChild(svg);
         }
 
-        window.addEventListener('load', drawBracketLines);
+        window.addEventListener('load', () => setTimeout(drawBracketLines, 100));
         window.addEventListener('resize', drawBracketLines);
     </script>
 
