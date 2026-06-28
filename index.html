@@ -44,15 +44,18 @@
             text-align: center;
         }
         .bracket-wrapper {
-            display: flex;
-            justify-content: center;
+            display: block;
             overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
             padding: 20px 0;
+            width: 100%;
         }
         .bracket {
-            display: flex;
+            display: inline-flex;
             align-items: stretch;
             position: relative;
+            margin: 0 auto;
         }
         .round {
             display: flex;
@@ -169,6 +172,7 @@
         }
         .chart-label {
             width: 80px;
+            min-width: 80px;
             font-size: 0.85rem;
             font-weight: 600;
             text-align: right;
@@ -187,8 +191,9 @@
             border-radius: 6px;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            padding-left: 10px;
             padding-right: 10px;
+            min-width: 30px;
             transition: width 1s ease;
         }
         .chart-value {
@@ -249,27 +254,22 @@
                 padding: 15px 10px;
             }
             .header {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 10px;
             }
             .logo {
-                width: 45px;
+                width: 40px;
             }
             h1 {
                 font-size: 1.1rem;
                 text-align: center;
+                white-space: nowrap;
             }
             .subtitle, .last-updated {
                 text-align: center;
             }
             .bracket-wrapper {
                 padding: 10px 0;
-                overflow-x: scroll;
-                -webkit-overflow-scrolling: touch;
-            }
-            .bracket {
-                min-width: 900px;
-                gap: 0;
             }
             .round {
                 min-width: 160px;
@@ -300,8 +300,10 @@
                 font-size: 0.9rem;
             }
             .chart-label {
-                width: 60px;
+                width: 70px;
+                min-width: 70px;
                 font-size: 0.75rem;
+                padding-right: 8px;
             }
             .chart-bar-wrapper {
                 height: 26px;
@@ -324,9 +326,6 @@
         }
 
         @media (max-width: 480px) {
-            .bracket {
-                min-width: 800px;
-            }
             .round {
                 min-width: 140px;
             }
