@@ -692,22 +692,63 @@
         }
         .goldenboot-bar-area {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
         }
-        .goldenboot-label {
+        .goldenboot-card {
             width: 160px;
             min-width: 160px;
+            background: #1a1a3e;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            overflow: hidden;
+            margin-right: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .goldenboot-card:hover {
+            transform: scale(1.03);
+            border-color: #ffd700;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+        .goldenboot-card-info {
             display: flex;
             align-items: center;
+            padding: 6px 8px;
             gap: 8px;
-            padding-right: 12px;
-            height: 36px;
         }
-        .goldenboot-label span {
-            font-size: 0.8rem;
+        .goldenboot-card-info span {
+            font-size: 10.4px;
             font-weight: 600;
             color: #ddd;
             white-space: nowrap;
+        }
+        .goldenboot-supporters-btn {
+            display: block;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: #888;
+            font-size: 0.6rem;
+            padding: 3px 0;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+            border-top: 1px solid #2a2a5a;
+        }
+        .goldenboot-supporters-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .goldenboot-supporters-panel {
+            display: none;
+            padding: 6px 8px;
+            background: #12122a;
+            border-top: 1px solid #2a2a5a;
+        }
+        .goldenboot-supporters-panel.show {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
         }
         .goldenboot-bar-wrapper {
             flex: 1;
@@ -717,6 +758,7 @@
             height: 36px;
             border: 1px solid #2a2a5a;
             position: relative;
+            margin-top: 4px;
         }
         .goldenboot-bar {
             height: 100%;
@@ -748,39 +790,6 @@
             font-size: 0.8rem;
             font-weight: 700;
             color: #1a1a3e;
-        }
-        .goldenboot-supporters-btn {
-            display: block;
-            width: 160px;
-            background: rgba(255, 215, 0, 0.05);
-            border: none;
-            color: #888;
-            font-size: 0.6rem;
-            padding: 3px 0;
-            cursor: pointer;
-            text-align: center;
-            transition: background 0.2s, color 0.2s;
-            border-top: 1px solid #2a2a5a;
-            border-radius: 0 0 6px 6px;
-            margin-top: -1px;
-        }
-        .goldenboot-supporters-btn:hover {
-            background: rgba(255, 215, 0, 0.15);
-            color: #ffd700;
-        }
-        .goldenboot-supporters-panel {
-            display: none;
-            padding: 8px 12px;
-            background: #12122a;
-            border: 1px solid #2a2a5a;
-            border-top: none;
-            border-radius: 0 0 6px 6px;
-        }
-        .goldenboot-supporters-panel.show {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: flex-start;
         }
 
         /* Total Goal Glowing Effect */
@@ -933,11 +942,12 @@
             .total-goal-marker-value-v {
                 font-size: 0.6rem;
             }
-            .goldenboot-label {
+            .goldenboot-card {
                 width: 140px;
                 min-width: 140px;
+                margin-right: 8px;
             }
-            .goldenboot-label span {
+            .goldenboot-card-info span {
                 font-size: 0.7rem;
             }
             .goldenboot-avatar {
@@ -951,12 +961,9 @@
             .goldenboot-value {
                 font-size: 0.7rem;
             }
-            .goldenboot-supporters-btn {
-                width: 140px;
-            }
         }
 
-        @media (max-width: 480px) {        }
+        @media (max-width: 480px) {
             .round {
                 min-width: 140px;
             }
@@ -1039,11 +1046,12 @@
                 right: -6px;
                 left: auto;
             }
-            .goldenboot-label {
+            .goldenboot-card {
                 width: 120px;
                 min-width: 120px;
+                margin-right: 8px;
             }
-            .goldenboot-label span {
+            .goldenboot-card-info span {
                 font-size: 0.6rem;
             }
             .goldenboot-avatar {
@@ -1056,9 +1064,6 @@
             }
             .goldenboot-value {
                 font-size: 0.6rem;
-            }
-            .goldenboot-supporters-btn {
-                width: 120px;
             }
         }
     </style>
@@ -1892,45 +1897,26 @@
                 const row = document.createElement('div');
                 row.className = 'goldenboot-row';
 
-                // Bar area (label + bar)
+                // Bar area (card + bar)
                 const barArea = document.createElement('div');
                 barArea.className = 'goldenboot-bar-area';
 
-                // Label with player name only
-                const label = document.createElement('div');
-                label.className = 'goldenboot-label';
+                // Card (like podium-team-card): info + toggle + panel
+                const card = document.createElement('div');
+                card.className = 'goldenboot-card';
+
+                // Card info (player name)
+                const cardInfo = document.createElement('div');
+                cardInfo.className = 'goldenboot-card-info';
                 const nameSpan = document.createElement('span');
                 nameSpan.textContent = player.name;
-                label.appendChild(nameSpan);
-
-                // Bar wrapper + bar
-                const barWrapper = document.createElement('div');
-                barWrapper.className = 'goldenboot-bar-wrapper';
-                const bar = document.createElement('div');
-                bar.className = 'goldenboot-bar';
-                const pct = player.goals > 0 ? Math.max((player.goals / maxGoals) * 100, 15) : 15;
-                bar.style.width = pct + '%';
-                const valueSpan = document.createElement('span');
-                valueSpan.className = 'goldenboot-value';
-                valueSpan.textContent = player.goals + ' Gol';
-                bar.appendChild(valueSpan);
-                // Player avatar on the right of the bar
-                const playerImg = document.createElement('img');
-                playerImg.className = 'goldenboot-avatar';
-                playerImg.src = player.img;
-                playerImg.alt = player.name;
-                playerImg.onerror = function() { this.style.display = 'none'; };
-                bar.appendChild(playerImg);
-                barWrapper.appendChild(bar);
-
-                barArea.appendChild(label);
-                barArea.appendChild(barWrapper);
-                row.appendChild(barArea);
+                cardInfo.appendChild(nameSpan);
+                card.appendChild(cardInfo);
 
                 // Supporters toggle button
                 const btn = document.createElement('button');
                 btn.className = 'goldenboot-supporters-btn';
-                btn.textContent = '▼ Show';
+                btn.textContent = 'Show';
 
                 // Supporters panel
                 const panel = document.createElement('div');
@@ -1953,11 +1939,35 @@
 
                 btn.onclick = function() {
                     const isVisible = panel.classList.toggle('show');
-                    btn.textContent = isVisible ? '▲ Hide' : '▼ Show';
+                    btn.textContent = isVisible ? 'Hide' : 'Show';
                 };
 
-                row.appendChild(btn);
-                row.appendChild(panel);
+                card.appendChild(btn);
+                card.appendChild(panel);
+
+                // Bar wrapper + bar
+                const barWrapper = document.createElement('div');
+                barWrapper.className = 'goldenboot-bar-wrapper';
+                const bar = document.createElement('div');
+                bar.className = 'goldenboot-bar';
+                const pct = player.goals > 0 ? Math.max((player.goals / maxGoals) * 100, 15) : 15;
+                bar.style.width = pct + '%';
+                const valueSpan = document.createElement('span');
+                valueSpan.className = 'goldenboot-value';
+                valueSpan.textContent = player.goals + ' Goal';
+                bar.appendChild(valueSpan);
+                // Player avatar on the right of the bar
+                const playerImg = document.createElement('img');
+                playerImg.className = 'goldenboot-avatar';
+                playerImg.src = player.img;
+                playerImg.alt = player.name;
+                playerImg.onerror = function() { this.style.display = 'none'; };
+                bar.appendChild(playerImg);
+                barWrapper.appendChild(bar);
+
+                barArea.appendChild(card);
+                barArea.appendChild(barWrapper);
+                row.appendChild(barArea);
                 container.appendChild(row);
             });
         }
