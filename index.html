@@ -701,13 +701,7 @@
             align-items: center;
             gap: 8px;
             padding-right: 12px;
-        }
-        .goldenboot-label img {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ffd700;
+            height: 36px;
         }
         .goldenboot-label span {
             font-size: 0.8rem;
@@ -720,7 +714,7 @@
             background: #1a1a3e;
             border-radius: 6px;
             overflow: visible;
-            height: 32px;
+            height: 36px;
             border: 1px solid #2a2a5a;
             position: relative;
         }
@@ -730,10 +724,25 @@
             display: flex;
             align-items: center;
             padding-left: 10px;
-            padding-right: 10px;
+            padding-right: 16px;
             min-width: 40px;
             transition: width 1s ease;
             background: linear-gradient(90deg, #ffd700, #f39c12);
+            position: relative;
+        }
+        .goldenboot-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffd700;
+            flex-shrink: 0;
+            position: absolute;
+            right: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
         .goldenboot-value {
             font-size: 0.8rem;
@@ -928,15 +937,16 @@
                 width: 140px;
                 min-width: 140px;
             }
-            .goldenboot-label img {
-                width: 24px;
-                height: 24px;
-            }
             .goldenboot-label span {
                 font-size: 0.7rem;
             }
+            .goldenboot-avatar {
+                width: 30px;
+                height: 30px;
+                right: -15px;
+            }
             .goldenboot-bar-wrapper {
-                height: 26px;
+                height: 30px;
             }
             .goldenboot-value {
                 font-size: 0.7rem;
@@ -1033,15 +1043,16 @@
                 width: 120px;
                 min-width: 120px;
             }
-            .goldenboot-label img {
-                width: 20px;
-                height: 20px;
-            }
             .goldenboot-label span {
                 font-size: 0.6rem;
             }
+            .goldenboot-avatar {
+                width: 28px;
+                height: 28px;
+                right: -14px;
+            }
             .goldenboot-bar-wrapper {
-                height: 24px;
+                height: 28px;
             }
             .goldenboot-value {
                 font-size: 0.6rem;
@@ -1885,16 +1896,11 @@
                 const barArea = document.createElement('div');
                 barArea.className = 'goldenboot-bar-area';
 
-                // Label with player image + name
+                // Label with player name only
                 const label = document.createElement('div');
                 label.className = 'goldenboot-label';
-                const playerImg = document.createElement('img');
-                playerImg.src = player.img;
-                playerImg.alt = player.name;
-                playerImg.onerror = function() { this.style.display = 'none'; };
                 const nameSpan = document.createElement('span');
                 nameSpan.textContent = player.name;
-                label.appendChild(playerImg);
                 label.appendChild(nameSpan);
 
                 // Bar wrapper + bar
@@ -1908,6 +1914,13 @@
                 valueSpan.className = 'goldenboot-value';
                 valueSpan.textContent = player.goals + ' Gol';
                 bar.appendChild(valueSpan);
+                // Player avatar on the right of the bar
+                const playerImg = document.createElement('img');
+                playerImg.className = 'goldenboot-avatar';
+                playerImg.src = player.img;
+                playerImg.alt = player.name;
+                playerImg.onerror = function() { this.style.display = 'none'; };
+                bar.appendChild(playerImg);
                 barWrapper.appendChild(bar);
 
                 barArea.appendChild(label);
