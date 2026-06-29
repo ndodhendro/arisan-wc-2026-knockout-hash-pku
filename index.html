@@ -202,6 +202,20 @@
             padding-right: 12px;
             color: #ddd;
         }
+        .chart-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #444;
+            flex-shrink: 0;
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
         .chart-bar-wrapper {
             flex: 1;
             background: #1a1a3e;
@@ -217,9 +231,10 @@
             display: flex;
             align-items: center;
             padding-left: 10px;
-            padding-right: 10px;
+            padding-right: 16px;
             min-width: 40px;
             transition: width 1s ease;
+            position: relative;
         }
         .chart-value {
             font-size: 0.8rem;
@@ -390,12 +405,12 @@
         .podium-team-card:hover {
             transform: scale(1.03);
         }
-        .podium-place-1 .podium-team-card { border-color: rgba(52, 152, 219, 0.4); }
-        .podium-place-1 .podium-team-card:hover { border-color: #3498db; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2); }
-        .podium-place-2 .podium-team-card { border-color: rgba(46, 204, 113, 0.4); }
-        .podium-place-2 .podium-team-card:hover { border-color: #2ecc71; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2); }
-        .podium-place-3 .podium-team-card { border-color: rgba(241, 196, 15, 0.4); }
-        .podium-place-3 .podium-team-card:hover { border-color: #f1c40f; box-shadow: 0 4px 15px rgba(241, 196, 15, 0.2); }
+        .podium-place-1 .podium-team-card { border-color: rgba(255, 215, 0, 0.4); }
+        .podium-place-1 .podium-team-card:hover { border-color: #ffd700; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2); }
+        .podium-place-2 .podium-team-card { border-color: rgba(192, 192, 192, 0.4); }
+        .podium-place-2 .podium-team-card:hover { border-color: #c0c0c0; box-shadow: 0 4px 15px rgba(192, 192, 192, 0.2); }
+        .podium-place-3 .podium-team-card { border-color: rgba(205, 127, 50, 0.4); }
+        .podium-place-3 .podium-team-card:hover { border-color: #cd7f32; box-shadow: 0 4px 15px rgba(205, 127, 50, 0.2); }
         .podium-team-info {
             display: flex;
             align-items: center;
@@ -454,18 +469,18 @@
             letter-spacing: 0.5px;
         }
         .podium-place-1 .podium-block {
-            background: linear-gradient(180deg, #5dade2 0%, #2e86c1 100%);
+            background: linear-gradient(180deg, #ffd700 0%, #b8860b 100%);
             height: 100px;
             color: #1a1a3e;
             font-size: 1rem;
         }
         .podium-place-2 .podium-block {
-            background: linear-gradient(180deg, #58d68d 0%, #28b463 100%);
+            background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
             height: 70px;
             color: #1a1a3e;
         }
         .podium-place-3 .podium-block {
-            background: linear-gradient(180deg, #f4d03f 0%, #d4ac0f 100%);
+            background: linear-gradient(180deg, #cd7f32 0%, #8b4513 100%);
             height: 50px;
             color: #1a1a3e;
         }
@@ -477,9 +492,9 @@
             color: #888;
             font-weight: 600;
         }
-        .podium-place-1 .podium-label { color: #3498db; }
-        .podium-place-2 .podium-label { color: #2ecc71; }
-        .podium-place-3 .podium-label { color: #f1c40f; }
+        .podium-place-1 .podium-label { color: #ffd700; }
+        .podium-place-2 .podium-label { color: #c0c0c0; }
+        .podium-place-3 .podium-label { color: #cd7f32; }
 
         /* Player Podium (Golden Boot / Golden Glove) */
         .player-podium-place {
@@ -776,7 +791,7 @@
                 height: 26px;
             }
             .total-goal-track-v {
-                margin-left: 50;
+                margin-left: 280px;
             }
             .total-goal-marker-info {
                 padding: 4px 8px;
@@ -851,7 +866,7 @@
                 height: 22px;
             }
             .total-goal-track-v {
-                margin-left: 50px;
+                margin-left: 280px;
             }
             .total-goal-marker-line-v {
                 width: 12px;
@@ -882,12 +897,12 @@
 </head>
 <body>
     <div class="header">
-        <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
+        <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 HASH PKU</h1>
-            <p class="last-updated">Last updated: 29 Juni 2026, 11:30:00</p>
+            <p class="last-updated">Last updated: 29 Juni 2026, 11:30</p>
         </div>
-        <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
+        <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
 
     <div class="bracket-wrapper">
@@ -1200,13 +1215,13 @@
 
         // Isi link avatar untuk setiap peserta di sini
         const participantAvatars = {
-            'Davin': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/DAV.jpg?raw=true',
-            'Ndod': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/NDO.jpeg?raw=true',
-            'Khuang': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/KHU.png?raw=true',
-            'Marten': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/MAR.jpg?raw=true',
-            'Cham': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/CHA.jpg?raw=true',
-            'Willy': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/WIL.png?raw=true',
-            'Wesly': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/WES.jpg?raw=true'
+            'Davin': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/DAV.jpg?raw=true',
+            'Ndod': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/NDO.jpeg?raw=true',
+            'Khuang': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/KHU.png?raw=true',
+            'Marten': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/MAR.jpg?raw=true',
+            'Cham': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/CHA.jpg?raw=true',
+            'Willy': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/WIL.png?raw=true',
+            'Wesly': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/WES.jpg?raw=true'
         };
 
         function getInitials(name) {
@@ -1282,56 +1297,63 @@
             <div class="chart-row">
                 <div class="chart-label">Davin</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="width: 5%; background: #3498db;">
+                    <div class="chart-bar" style="background: #3498db;">
                         <span class="chart-value">0</span>
+                        <img src="assets/DAV.jpg" alt="Davin" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-label">Ndod</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="width: 5%; background: #e67e22;">
+                    <div class="chart-bar" style="background: #2ecc71;">
                         <span class="chart-value">0</span>
+                        <img src="assets/NDO.jpeg" alt="Ndod" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-label">Khuang</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="width: 5%; background: #f1c40f;">
+                    <div class="chart-bar" style="background: #f1c40f;">
                         <span class="chart-value">0</span>
+                        <img src="assets/KHU.png" alt="Khuang" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-label">Marten</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="width: 5%; background: #9b59b6;">
+                    <div class="chart-bar" style="background: #9b59b6;">
                         <span class="chart-value">0</span>
+                        <img src="assets/MAR.jpg" alt="Marten" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-label">Cham</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="width: 5%; background: #e74c3c;">
+                    <div class="chart-bar" style="background: #e74c3c;">
                         <span class="chart-value">0</span>
+                        <img src="assets/CHA.jpg" alt="Cham" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-label">Willy</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="width: 5%; background: #2ecc71;">
+                    <div class="chart-bar" style="background: #e67e22;">
                         <span class="chart-value">0</span>
+                        <img src="assets/WIL.png" alt="Willy" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-label">Wesly</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="width: 5%; background: #00bcd4;">
+                    <div class="chart-bar" style="background: #00bcd4;">
                         <span class="chart-value">0</span>
+                        <img src="assets/WES.jpg" alt="Wesly" class="chart-avatar">
                     </div>
                 </div>
             </div>
@@ -1454,7 +1476,7 @@
                 </div>
                 <!-- Champion (1st) - Center -->
                 <div class="podium-place podium-place-1">
-                    <div class="podium-label"><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/fifa-world-cup-2026-logo.png?raw=true" alt="Champion" style="width:16px;height:16px;vertical-align:middle;margin-right:4px;"> Champion</div>
+                    <div class="podium-label"><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="Champion" style="width:16px;height:16px;vertical-align:middle;margin-right:4px;"> Champion</div>
                     <div class="podium-teams" id="podium-champion"></div>
                     <div class="podium-block">1st</div>
                 </div>
@@ -1475,7 +1497,7 @@
 
         <!-- Golden Glove Podium -->
         <div class="podium-section">
-            <h4 style="text-align:center; color:#00bcd4; font-size:0.9rem; margin-bottom:10px;"><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/images__1_-removebg-preview.png?raw=true" alt="Golden Glove" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"> Golden Glove</h4>
+            <h4 style="text-align:center; color:#00bcd4; font-size:0.9rem; margin-bottom:10px;"><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/images__1_-removebg-preview.png?raw=true" alt="Golden Glove" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"> Golden Glove</h4>
             <div class="podium-container" style="align-items:stretch; overflow:visible; flex-wrap:wrap;" id="podium-goldenglove-container"></div>
         </div>
 
@@ -1822,7 +1844,36 @@
 
         window.addEventListener('load', () => {
             setTimeout(buildTotalGoalBar, 300);
+            setTimeout(updateStandingsChart, 100);
         });
+
+        function updateStandingsChart() {
+            const chart = document.querySelector('.standings-chart');
+            if (!chart) return;
+            const rows = Array.from(chart.querySelectorAll('.chart-row'));
+            
+            // Get points from each row
+            rows.forEach(row => {
+                const valueEl = row.querySelector('.chart-value');
+                row._points = parseInt(valueEl.textContent) || 0;
+            });
+
+            // Sort by points descending
+            rows.sort((a, b) => b._points - a._points);
+
+            // Re-append in sorted order
+            rows.forEach(row => chart.appendChild(row));
+
+            // Calculate max points for width scaling
+            const maxPoints = Math.max(...rows.map(r => r._points), 1);
+
+            // Update widths
+            rows.forEach(row => {
+                const bar = row.querySelector('.chart-bar');
+                const pct = Math.max((row._points / maxPoints) * 100, 8);
+                bar.style.width = pct + '%';
+            });
+        }
     </script>
 </body>
 </html>
