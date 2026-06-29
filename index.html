@@ -1368,6 +1368,7 @@
         const participantAvatars = {
             'Davin': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/DAV.jpg?raw=true',
             'Ndod': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/NDO.jpeg?raw=true',
+            'Hendro': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/NDO.jpeg?raw=true',
             'Khuang': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/KHU.png?raw=true',
             'Marten': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/MAR.jpg?raw=true',
             'Cham': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/CHA.jpg?raw=true',
@@ -1755,9 +1756,9 @@
 
         // Golden Boot Data (sorted by most goals)
         const goldenBootData = [
-            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 0 },
-            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 0 },
-            { name: 'Lamine Yamal', img: 'https://img.a.transfermarkt.technology/portrait/big/937958-1773173768.jpg?lm=1', goals: 0 }
+            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 0, supporters: ['Hendro', 'Khuang', 'Cham', 'Wesly'] },
+            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 0, supporters: ['Davin', 'Willy'] },
+            { name: 'Lamine Yamal', img: 'https://img.a.transfermarkt.technology/portrait/big/937958-1773173768.jpg?lm=1', goals: 0, supporters: ['Marten'] }
         ];
 
         // Golden Glove Data (sorted by most votes)
@@ -1899,7 +1900,7 @@
                 bar.style.width = pct + '%';
                 const valueSpan = document.createElement('span');
                 valueSpan.className = 'goldenboot-value';
-                valueSpan.textContent = player.goals + (player.goals === 1 ? ' Goal' : ' Goal');
+                valueSpan.textContent = player.goals + ' Gol';
                 bar.appendChild(valueSpan);
                 barWrapper.appendChild(bar);
 
@@ -1907,6 +1908,37 @@
                 barArea.appendChild(barWrapper);
                 row.appendChild(barArea);
 
+                // Supporters toggle button
+                const btn = document.createElement('button');
+                btn.className = 'goldenboot-supporters-btn';
+                btn.textContent = '▼ Show';
+
+                // Supporters panel
+                const panel = document.createElement('div');
+                panel.className = 'goldenboot-supporters-panel';
+
+                player.supporters.forEach(s => {
+                    const item = document.createElement('div');
+                    item.className = 'supporter-item';
+                    const img = document.createElement('img');
+                    img.className = 'supporter-avatar';
+                    img.src = participantAvatars[s] || defaultAvatar;
+                    img.alt = s;
+                    const sLabel = document.createElement('span');
+                    sLabel.className = 'supporter-name';
+                    sLabel.textContent = getInitials(s);
+                    item.appendChild(img);
+                    item.appendChild(sLabel);
+                    panel.appendChild(item);
+                });
+
+                btn.onclick = function() {
+                    const isVisible = panel.classList.toggle('show');
+                    btn.textContent = isVisible ? '▲ Hide' : '▼ Show';
+                };
+
+                row.appendChild(btn);
+                row.appendChild(panel);
                 container.appendChild(row);
             });
         }
