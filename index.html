@@ -1167,6 +1167,91 @@
     </style>
 </head>
 <body>
+    <!-- Splash Overlay - klik untuk masuk & mulai musik -->
+    <div id="splash-overlay">
+        <div class="splash-content">
+            <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="splash-logo">
+            <h2 class="splash-title">Arisan World Cup 2026</h2>
+            <p class="splash-subtitle">HASH PKU</p>
+            <button id="enter-btn" onclick="enterSite()">⚽ Masuk</button>
+        </div>
+    </div>
+
+    <style>
+        #splash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #splash-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .splash-content {
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .splash-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            mix-blend-mode: screen;
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .splash-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .splash-subtitle {
+            font-size: 1rem;
+            color: #e94560;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        #enter-btn {
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: 2px solid #e94560;
+            background: transparent;
+            color: #fff;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulseBtn 2s ease-in-out infinite;
+        }
+        #enter-btn:hover {
+            background: #e94560;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(233, 69, 96, 0.5);
+        }
+        @keyframes pulseBtn {
+            0%, 100% { box-shadow: 0 0 10px rgba(233, 69, 96, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(233, 69, 96, 0.6); }
+        }
+    </style>
+
     <div class="header">
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
@@ -2265,6 +2350,94 @@
                 const pct = Math.max((row._points / maxPoints) * 100, 8);
                 bar.style.width = pct + '%';
             });
+        }
+    </script>
+
+    <!-- Background Music (lokal MP3) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Mute/Unmute Button -->
+    <button id="music-toggle" onclick="toggleMusic()" title="Klik untuk Play/Mute" aria-label="Toggle background music">
+        🔊
+    </button>
+
+    <style>
+        #music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #e94560;
+            background: rgba(15, 15, 35, 0.9);
+            color: #fff;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            backdrop-filter: blur(8px);
+            animation: pulseHint 1.5s ease-in-out infinite;
+        }
+        @keyframes pulseHint {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3); }
+            50% { transform: scale(1.1); box-shadow: 0 6px 25px rgba(233, 69, 96, 0.6); }
+        }
+        #music-toggle.playing {
+            animation: none;
+        }
+        #music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(233, 69, 96, 0.5);
+            background: rgba(233, 69, 96, 0.2);
+        }
+        #music-toggle.muted {
+            border-color: #666;
+            box-shadow: 0 4px 15px rgba(100, 100, 100, 0.3);
+            animation: none;
+        }
+        #music-toggle.muted:hover {
+            box-shadow: 0 6px 25px rgba(100, 100, 100, 0.5);
+            background: rgba(100, 100, 100, 0.2);
+        }
+    </style>
+
+    <script>
+        var isMuted = false;
+        var audio = document.getElementById('bg-music');
+        audio.volume = 0.5;
+
+        function enterSite() {
+            // Hilangkan splash overlay
+            document.getElementById('splash-overlay').classList.add('hidden');
+            // Mulai musik
+            audio.play();
+            var btn = document.getElementById('music-toggle');
+            btn.classList.add('playing');
+        }
+
+        function toggleMusic() {
+            var btn = document.getElementById('music-toggle');
+
+            if (isMuted) {
+                audio.play();
+                btn.textContent = '🔊';
+                btn.classList.remove('muted');
+                btn.classList.add('playing');
+                isMuted = false;
+            } else {
+                audio.pause();
+                btn.textContent = '🔇';
+                btn.classList.add('muted');
+                btn.classList.remove('playing');
+                isMuted = true;
+            }
         }
     </script>
 </body>
