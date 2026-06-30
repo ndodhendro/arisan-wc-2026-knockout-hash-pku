@@ -425,6 +425,55 @@
         .podium-place-2 .podium-team-card:hover { border-color: #c0c0c0; box-shadow: 0 4px 15px rgba(192, 192, 192, 0.2); }
         .podium-place-3 .podium-team-card { border-color: rgba(205, 127, 50, 0.4); }
         .podium-place-3 .podium-team-card:hover { border-color: #cd7f32; box-shadow: 0 4px 15px rgba(205, 127, 50, 0.2); }
+
+        /* Podium Team Card Glowing */
+        .podium-place-1 .podium-team-card,
+        .podium-place-2 .podium-team-card,
+        .podium-place-3 .podium-team-card {
+            position: relative;
+            overflow: visible;
+        }
+        /* Disable glow with .no-glow class on individual cards */
+        .podium-team-card.no-glow::after {
+            animation: none !important;
+            opacity: 0 !important;
+        }
+        .podium-team-card.no-glow {
+            opacity: 0.4;
+            filter: grayscale(0.5);
+        }
+        .player-podium-card.no-glow {
+            opacity: 0.4;
+            filter: grayscale(0.5);
+            animation: none !important;
+            box-shadow: none !important;
+        }
+        #podium-goldenglove-container .player-podium-card.no-glow {
+            opacity: 0.4;
+            filter: grayscale(0.5);
+            animation: none !important;
+            box-shadow: none !important;
+        }
+        .podium-place-1 .podium-team-card::after,
+        .podium-place-2 .podium-team-card::after,
+        .podium-place-3 .podium-team-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 8px;
+            pointer-events: none;
+            animation: glowPulse 2.5s ease-in-out infinite;
+            will-change: opacity;
+        }
+        .podium-place-1 .podium-team-card::after {
+            box-shadow: 0 0 14px rgba(255, 215, 0, 0.7), 0 0 28px rgba(255, 215, 0, 0.3);
+        }
+        .podium-place-2 .podium-team-card::after {
+            box-shadow: 0 0 14px rgba(192, 192, 192, 0.7), 0 0 28px rgba(192, 192, 192, 0.3);
+        }
+        .podium-place-3 .podium-team-card::after {
+            box-shadow: 0 0 14px rgba(205, 127, 50, 0.7), 0 0 28px rgba(205, 127, 50, 0.3);
+        }
         .podium-team-info {
             display: flex;
             align-items: center;
@@ -792,19 +841,68 @@
             color: #1a1a3e;
         }
 
+        /* === Unified Glow Animation === */
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Golden Glove Glowing Effect */
+        #podium-goldenglove-container .player-podium-card {
+            border-color: rgba(0, 188, 212, 0.5);
+            box-shadow: 0 0 16px rgba(0, 188, 212, 0.7), 0 0 32px rgba(0, 188, 212, 0.2);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            will-change: opacity;
+        }
+
+        /* Golden Boot #1 Glowing Effect */
+        .goldenboot-row.top-1 .goldenboot-card {
+            border-color: rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.7), 0 0 36px rgba(255, 215, 0, 0.2);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            will-change: opacity;
+        }
+        .goldenboot-row.top-1 .goldenboot-bar-wrapper {
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.7), 0 0 36px rgba(255, 215, 0, 0.2);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            will-change: opacity;
+        }
+
+        /* Matchup Today Glowing Effect */
+        .matchup.today {
+            border-color: rgba(0, 255, 136, 0.6) !important;
+            box-shadow: 0 0 18px rgba(0, 255, 136, 0.7), 0 0 36px rgba(0, 255, 136, 0.2);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            will-change: opacity;
+        }
+        .matchup.today .matchup-date {
+            background: rgba(0, 255, 136, 0.12);
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        /* Standings #1 Glowing Effect */
+        .chart-row.top-1 .chart-bar-wrapper {
+            border-color: var(--glow-color, #ffd700);
+            box-shadow: 0 0 18px color-mix(in srgb, var(--glow-color, #ffd700) 70%, transparent), 0 0 36px color-mix(in srgb, var(--glow-color, #ffd700) 20%, transparent);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            will-change: opacity;
+        }
+        .chart-row.top-1 .chart-label {
+            color: var(--glow-color, #ffd700);
+        }
+        .chart-row.top-1 .chart-avatar {
+            border-color: var(--glow-color, #ffd700);
+            box-shadow: 0 0 6px color-mix(in srgb, var(--glow-color, #ffd700) 50%, transparent);
+        }
+
         /* Total Goal Glowing Effect */
         .total-goal-marker-info.glowing {
-            animation: glowPulse 2s ease-in-out infinite;
             border-color: #e94560 !important;
-            box-shadow: 0 0 12px rgba(233, 69, 96, 0.6), 0 0 24px rgba(233, 69, 96, 0.3);
-        }
-        @keyframes glowPulse {
-            0%, 100% {
-                box-shadow: 0 0 8px rgba(233, 69, 96, 0.4), 0 0 16px rgba(233, 69, 96, 0.2);
-            }
-            50% {
-                box-shadow: 0 0 16px rgba(233, 69, 96, 0.8), 0 0 32px rgba(233, 69, 96, 0.4), 0 0 48px rgba(233, 69, 96, 0.2);
-            }
+            box-shadow: 0 0 16px rgba(233, 69, 96, 0.8), 0 0 32px rgba(233, 69, 96, 0.4), 0 0 48px rgba(233, 69, 96, 0.2);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            will-change: opacity;
         }
 
         /* Responsive - Mobile */
@@ -1073,7 +1171,7 @@
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 HASH PKU</h1>
-            <p class="last-updated">Last updated: 30 Juni 2026, 14:45 WIB</p>
+            <p class="last-updated">Last updated: 30 Juni 2026, 15:45 WIB</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
@@ -1099,7 +1197,7 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/de.png" alt="GER"></span><span class="team-name">Jerman</span><span class="team-score">1 (3)</span></div>
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/py.png" alt="PAR"></span><span class="team-name">Paraguay</span><span class="team-score">1 (4)</span></div>
                     </div>
-                    <div class="matchup-date">
+                    <div class="matchup today">
                         <div class="matchup-date">Rab, 1 Juli, 04:00 WIB WIB</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/se.png" alt="SWE"></span><span class="team-name">Swedia</span></div>
@@ -1129,17 +1227,17 @@
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/br.png" alt="BRA"></span><span class="team-name">Brasil</span><span class="team-score">2</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/jp.png" alt="JPN"></span><span class="team-name">Jepang</span><span class="team-score">1</span></div>
                     </div>
-                    <div class="matchup-date">
+                    <div class="matchup today">
                         <div class="matchup-date">Rab, 1 Juli, 00:00 WIB WIB</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ci.png" alt="CIV"></span><span class="team-name">Pantai Gading</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span></div>
                     </div>
-                    <div class="matchup-date">
+                    <div class="matchup today">
                         <div class="matchup-date">Rab, 1 Juli, 08:00 WIB WIB</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ec.png" alt="ECU"></span><span class="team-name">Ekuador</span></div>
                     </div>
-                    <div class="matchup-date">
+                    <div class="matchup today">
                         <div class="matchup-date">Rab, 1 Juli, 23:00 WIB WIB</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/cd.png" alt="COD"></span><span class="team-name">RD Kongo</span></div>
@@ -1685,22 +1783,22 @@
         // Side Quest Podium Data
         const sideQuestPodium = {
             champion: {
-                'Argentina': { flag: 'ar', supporters: ['Khuang', 'Cham', 'Willy'] },
-                'Portugal': { flag: 'pt', supporters: ['Davin'] },
-                'Perancis': { flag: 'fr', supporters: ['Ndod'] },
-                'Spanyol': { flag: 'es', supporters: ['Marten'] },
-                'Brazil': { flag: 'br', supporters: ['Wesly'] }
+                'Argentina': { flag: 'ar', supporters: ['Khuang', 'Cham', 'Willy'], eliminated: false },
+                'Portugal': { flag: 'pt', supporters: ['Davin'], eliminated: false },
+                'Perancis': { flag: 'fr', supporters: ['Ndod'], eliminated: false },
+                'Spanyol': { flag: 'es', supporters: ['Marten'], eliminated: false },
+                'Brazil': { flag: 'br', supporters: ['Wesly'], eliminated: false }
             },
             runnerup: {
-                'Argentina': { flag: 'ar', supporters: ['Davin', 'Ndod', 'Marten'] },
-                'Spanyol': { flag: 'es', supporters: ['Khuang', 'Wesly'] },
-                'Perancis': { flag: 'fr', supporters: ['Cham', 'Willy'] }
+                'Argentina': { flag: 'ar', supporters: ['Davin', 'Ndod', 'Marten'], eliminated: false },
+                'Spanyol': { flag: 'es', supporters: ['Khuang', 'Wesly'], eliminated: false },
+                'Perancis': { flag: 'fr', supporters: ['Cham', 'Willy'], eliminated: false }
             },
             third: {
-                'Brazil': { flag: 'br', supporters: ['Davin', 'Marten'] },
-                'Spanyol': { flag: 'es', supporters: ['Ndod'] },
-                'Perancis': { flag: 'fr', supporters: ['Khuang', 'Wesly'] },
-                'Portugal': { flag: 'pt', supporters: ['Cham', 'Willy'] }
+                'Brazil': { flag: 'br', supporters: ['Davin', 'Marten'], eliminated: false },
+                'Spanyol': { flag: 'es', supporters: ['Ndod'], eliminated: false },
+                'Perancis': { flag: 'fr', supporters: ['Khuang', 'Wesly'], eliminated: false },
+                'Portugal': { flag: 'pt', supporters: ['Cham', 'Willy'], eliminated: false }
             }
         };
 
@@ -1718,6 +1816,7 @@
             sorted.forEach(([team, info]) => {
                 const card = document.createElement('div');
                 card.className = 'podium-team-card';
+                if (info.eliminated) card.classList.add('no-glow');
 
                 // Team info row
                 const teamInfo = document.createElement('div');
@@ -1785,11 +1884,11 @@
 
         // Golden Glove Data (sorted by most votes)
         const goldenGloveData = [
-            { name: 'Emiliano Martinez', img: 'https://img.a.transfermarkt.technology/portrait/big/111873-1668180824.jpg?lm=1', supporters: ['Ndod', 'Khuang', 'Willy'] },
-            { name: 'Mike Maignan', img: 'https://cdn.soccerwiki.org/images/player/68131.png', supporters: ['Cham'] },
-            { name: 'Vozinha', img: 'https://img.a.transfermarkt.technology/portrait/big/242277-1713587632.png?lm=1', supporters: ['Davin'] },
-            { name: 'Unai Simon', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/194820-removebg-preview.png?raw=true', supporters: ['Marten'] },
-            { name: 'Alison Becker', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/images__2_-removebg-preview.png?raw=true', supporters: ['Wesly'] }
+            { name: 'Emiliano Martinez', img: 'https://img.a.transfermarkt.technology/portrait/big/111873-1668180824.jpg?lm=1', supporters: ['Ndod', 'Khuang', 'Willy'], eliminated: false },
+            { name: 'Mike Maignan', img: 'https://cdn.soccerwiki.org/images/player/68131.png', supporters: ['Cham'], eliminated: false },
+            { name: 'Vozinha', img: 'https://img.a.transfermarkt.technology/portrait/big/242277-1713587632.png?lm=1', supporters: ['Davin'], eliminated: false },
+            { name: 'Unai Simon', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/194820-removebg-preview.png?raw=true', supporters: ['Marten'], eliminated: false },
+            { name: 'Alison Becker', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/images__2_-removebg-preview.png?raw=true', supporters: ['Wesly'], eliminated: false }
         ];
 
         // Total Goal Data
@@ -1816,6 +1915,7 @@
 
                 const card = document.createElement('div');
                 card.className = 'player-podium-card';
+                if (player.eliminated) card.classList.add('no-glow');
 
                 // Player info
                 const info = document.createElement('div');
@@ -1889,13 +1989,18 @@
             const container = document.getElementById('goldenboot-chart');
             if (!container) return;
 
-            // Sort by goals count descending
-            const sorted = [...goldenBootData].sort((a, b) => b.goals - a.goals);
+            // Sort by goals count descending, then name ascending
+            const sorted = [...goldenBootData].sort((a, b) => {
+                const diff = b.goals - a.goals;
+                if (diff !== 0) return diff;
+                return a.name.localeCompare(b.name);
+            });
             const maxGoals = Math.max(...sorted.map(p => p.goals), 1);
 
-            sorted.forEach(player => {
+            sorted.forEach((player, index) => {
                 const row = document.createElement('div');
                 row.className = 'goldenboot-row';
+                if (player.goals === sorted[0].goals) row.classList.add('top-1');
 
                 // Bar area (card + bar)
                 const barArea = document.createElement('div');
@@ -2139,8 +2244,17 @@
             // Sort by points descending
             rows.sort((a, b) => b._points - a._points);
 
-            // Re-append in sorted order
-            rows.forEach(row => chart.appendChild(row));
+            // Re-append in sorted order and mark #1
+            rows.forEach((row, index) => {
+                chart.appendChild(row);
+                row.classList.remove('top-1');
+                if (index === 0) {
+                    row.classList.add('top-1');
+                    const bar = row.querySelector('.chart-bar');
+                    const barColor = bar.style.background || bar.style.backgroundColor;
+                    row.style.setProperty('--glow-color', barColor);
+                }
+            });
 
             // Calculate max points for width scaling
             const maxPoints = Math.max(...rows.map(r => r._points), 1);
