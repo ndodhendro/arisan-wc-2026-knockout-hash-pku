@@ -2326,10 +2326,15 @@
             rows.forEach(row => {
                 const valueEl = row.querySelector('.chart-value');
                 row._points = parseInt(valueEl.textContent) || 0;
+                row._name = row.querySelector('.chart-label')?.textContent.trim() || '';
             });
 
-            // Sort by points descending
-            rows.sort((a, b) => b._points - a._points);
+            // Sort by points descending, then name ascending
+            rows.sort((a, b) => {
+                const diff = b._points - a._points;
+                if (diff !== 0) return diff;
+                return a._name.localeCompare(b._name);
+            });
 
             // Re-append in sorted order and mark all with highest score
             const topScore = rows.length > 0 ? rows[0]._points : 0;
