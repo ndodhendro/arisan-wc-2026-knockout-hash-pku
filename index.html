@@ -1258,7 +1258,7 @@
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 HASH PKU</h1>
-            <p class="last-updated">Last updated: 30 Juni 2026, 15:45 WIB</p>
+            <p class="last-updated">Last updated: 1 Juli 2026, 16:00 WIB</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
@@ -1319,10 +1319,10 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ci.png" alt="CIV"></span><span class="team-name">Pantai Gading</span><span class="team-score">1</span></div>
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span><span class="team-score">2</span></div>
                     </div>
-                    <div class="matchup today">
+                    <div class="matchup finished">
                         <div class="matchup-date">Rab, 1 Juli, 08:00 WIB</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ec.png" alt="ECU"></span><span class="team-name">Ekuador</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span><span class="team-score">2</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ec.png" alt="ECU"></span><span class="team-name">Ekuador</span><span class="team-score">0</span></div>
                     </div>
                     <div class="matchup today">
                         <div class="matchup-date">Rab, 1 Juli, 23:00 WIB</div>
@@ -1383,7 +1383,7 @@
                     </div>
                     <div class="matchup tbd">
                         <div class="matchup-date">Sen, 6 Juli, 07:00 WIB</div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span></div>
                         <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
                     </div>
                     <div class="matchup tbd">
@@ -2171,7 +2171,7 @@
 
             const startValue = 0;
             const endValue = 120;
-            const currentGoal = 14; // <-- Update with actual current tournament total goals
+            const currentGoal = 16; // <-- Update with actual current tournament total goals
             const trackHeight = 500; // Total height of the track in px
 
             // Adjustable spacing offsets (in px from calculated position)
@@ -2358,7 +2358,7 @@
 
     <!-- Background Music (lokal MP3) -->
     <audio id="bg-music" loop preload="auto">
-        <source src="assets/music.mp3" type="audio/mpeg">
+        <source src="assets/music3.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Mute/Unmute Button -->
@@ -2413,12 +2413,15 @@
 
     <script>
         var isMuted = false;
+        var hasEntered = false;
+        var pausedByFocusLoss = false;
         var audio = document.getElementById('bg-music');
         audio.volume = 0.5;
 
         function enterSite() {
             // Hilangkan splash overlay
             document.getElementById('splash-overlay').classList.add('hidden');
+            hasEntered = true;
             // Mulai musik
             audio.play();
             var btn = document.getElementById('music-toggle');
@@ -2440,8 +2443,29 @@
                 btn.classList.add('muted');
                 btn.classList.remove('playing');
                 isMuted = true;
+                pausedByFocusLoss = false;
             }
         }
+
+        function updateMusicForPageFocus() {
+            if (!hasEntered || isMuted) return;
+
+            var pageInactive = document.hidden || !document.hasFocus();
+
+            if (pageInactive) {
+                if (!audio.paused) {
+                    pausedByFocusLoss = true;
+                    audio.pause();
+                }
+            } else if (pausedByFocusLoss) {
+                pausedByFocusLoss = false;
+                audio.play();
+            }
+        }
+
+        document.addEventListener('visibilitychange', updateMusicForPageFocus);
+        window.addEventListener('blur', updateMusicForPageFocus);
+        window.addEventListener('focus', updateMusicForPageFocus);
     </script>
 </body>
 </html>
