@@ -891,6 +891,8 @@
         }
         .chart-row.top-1 .chart-label {
             color: var(--glow-color, #ffd700);
+            text-shadow: 0 0 8px var(--glow-color, #ffd700), 0 0 16px color-mix(in srgb, var(--glow-color, #ffd700) 50%, transparent);
+            animation: glowPulse 2.5s ease-in-out infinite;
         }
         .chart-row.top-1 .chart-avatar {
             border-color: var(--glow-color, #ffd700);
@@ -1282,10 +1284,10 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/de.png" alt="GER"></span><span class="team-name">Jerman</span><span class="team-score">1 (3)</span></div>
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/py.png" alt="PAR"></span><span class="team-name">Paraguay</span><span class="team-score">1 (4)</span></div>
                     </div>
-                    <div class="matchup today">
+                    <div class="matchup finished">
                         <div class="matchup-date">Rab, 1 Juli, 04:00 WIB</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/se.png" alt="SWE"></span><span class="team-name">Swedia</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span><span class="team-score">3</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/se.png" alt="SWE"></span><span class="team-name">Swedia</span><span class="team-score">0</span></div>
                     </div>
                     <div class="matchup tbd">
                         <div class="matchup-date">Kam, 2 Juli, 03:00 WIB</div>
@@ -1312,10 +1314,10 @@
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/br.png" alt="BRA"></span><span class="team-name">Brasil</span><span class="team-score">2</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/jp.png" alt="JPN"></span><span class="team-name">Jepang</span><span class="team-score">1</span></div>
                     </div>
-                    <div class="matchup today">
+                    <div class="matchup finished">
                         <div class="matchup-date">Rab, 1 Juli, 00:00 WIB</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ci.png" alt="CIV"></span><span class="team-name">Pantai Gading</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ci.png" alt="CIV"></span><span class="team-name">Pantai Gading</span><span class="team-score">1</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span><span class="team-score">2</span></div>
                     </div>
                     <div class="matchup today">
                         <div class="matchup-date">Rab, 1 Juli, 08:00 WIB</div>
@@ -1362,7 +1364,7 @@
                     <div class="matchup tbd">
                         <div class="matchup-date">Min, 5 Juli, 04:00 WIB</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/py.png" alt="CAN"></span><span class="team-name">Paraguay</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
                     </div>
                     <div class="matchup tbd">
                         <div class="matchup-date">Sel, 7 Juli, 07:00 WIB</div>
@@ -1377,7 +1379,7 @@
                     <div class="matchup tbd">
                         <div class="matchup-date">Sen, 6 Juli, 03:00 WIB</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/br.png" alt="BRA"></span><span class="team-name">Brasil</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span></div>
                     </div>
                     <div class="matchup tbd">
                         <div class="matchup-date">Sen, 6 Juli, 07:00 WIB</div>
@@ -1655,7 +1657,7 @@
                 <div class="chart-label">Davin</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #3498db;">
-                        <span class="chart-value">3</span>
+                        <span class="chart-value">6</span>
                         <img src="assets/DAV.jpg" alt="Davin" class="chart-avatar">
                     </div>
                 </div>
@@ -1664,7 +1666,7 @@
                 <div class="chart-label">Ndod</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #2ecc71;">
-                        <span class="chart-value">1</span>
+                        <span class="chart-value">7</span>
                         <img src="assets/NDO.jpeg" alt="Ndod" class="chart-avatar">
                     </div>
                 </div>
@@ -1673,7 +1675,7 @@
                 <div class="chart-label">Khuang</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #f1c40f;">
-                        <span class="chart-value">3</span>
+                        <span class="chart-value">6</span>
                         <img src="assets/KHU.png" alt="Khuang" class="chart-avatar">
                     </div>
                 </div>
@@ -1682,7 +1684,7 @@
                 <div class="chart-label">Marten</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #9b59b6;">
-                        <span class="chart-value">0</span>
+                        <span class="chart-value">3</span>
                         <img src="assets/MAR.jpg" alt="Marten" class="chart-avatar">
                     </div>
                 </div>
@@ -1691,7 +1693,7 @@
                 <div class="chart-label">Cham</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #e74c3c;">
-                        <span class="chart-value">1</span>
+                        <span class="chart-value">7</span>
                         <img src="assets/CHA.jpg" alt="Cham" class="chart-avatar">
                     </div>
                 </div>
@@ -1700,7 +1702,7 @@
                 <div class="chart-label">Willy</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #e67e22;">
-                        <span class="chart-value">0</span>
+                        <span class="chart-value">6</span>
                         <img src="assets/WIL.png" alt="Willy" class="chart-avatar">
                     </div>
                 </div>
@@ -1811,7 +1813,7 @@
                         <td class="pot2 eliminated">Jepang</td>
                         <td class="pot2">Maroko</td>
                         <td class="pot3">Senegal</td>
-                        <td class="pot3">Swedia</td>
+                        <td class="pot3 eliminated">Swedia</td>
                         <td class="pot4">Paraguay</td>
                         <td class="pot4">Bosnia-Herz</td>
                     </tr>
@@ -1962,7 +1964,7 @@
 
         // Golden Boot Data (sorted by most goals)
         const goldenBootData = [
-            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 0, supporters: ['Hendro', 'Khuang', 'Cham', 'Wesly'] },
+            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 2, supporters: ['Hendro', 'Khuang', 'Cham', 'Wesly'] },
             { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 0, supporters: ['Davin', 'Willy'] },
             { name: 'Lamine Yamal', img: 'https://img.a.transfermarkt.technology/portrait/big/937958-1773173768.jpg?lm=1', goals: 0, supporters: ['Marten'] }
         ];
@@ -2169,7 +2171,7 @@
 
             const startValue = 0;
             const endValue = 120;
-            const currentGoal = 8; // <-- Update with actual current tournament total goals
+            const currentGoal = 14; // <-- Update with actual current tournament total goals
             const trackHeight = 500; // Total height of the track in px
 
             // Adjustable spacing offsets (in px from calculated position)
@@ -2329,11 +2331,12 @@
             // Sort by points descending
             rows.sort((a, b) => b._points - a._points);
 
-            // Re-append in sorted order and mark #1
-            rows.forEach((row, index) => {
+            // Re-append in sorted order and mark all with highest score
+            const topScore = rows.length > 0 ? rows[0]._points : 0;
+            rows.forEach((row) => {
                 chart.appendChild(row);
                 row.classList.remove('top-1');
-                if (index === 0) {
+                if (row._points === topScore && topScore > 0) {
                     row.classList.add('top-1');
                     const bar = row.querySelector('.chart-bar');
                     const barColor = bar.style.background || bar.style.backgroundColor;
